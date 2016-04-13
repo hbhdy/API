@@ -60,7 +60,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	static bool speed_P = true;
 	static int key, mkey = 0;
 	static int speed = 50;
-	static int Bugspeed = 85;
+	static int Bugspeed = 80;
 	static int BugTime = 0;  // ¾Ö¹ú·¹ ½Ã°£
 	static int JumpTime = 0;  // ¾Ö¹ú·¹ ÂÑ¾Æ¿À´Â ¾Ö
 	/*static int main = 0, maintwo = 0;
@@ -154,7 +154,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 		}
 		InvalidateRect(hWnd, NULL, false);
 		break;
-
+		
 	case WM_TIMER:
 		/*test++;*/
 		switch (wParam) {
