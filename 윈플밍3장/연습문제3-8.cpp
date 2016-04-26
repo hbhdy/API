@@ -1,10 +1,11 @@
 #include <Windows.h>
-#include <math.h>
 #include <time.h>
+#include <math.h>
 
 HINSTANCE g_hlnst;
 LPCTSTR lpszClass = "window program 1 - 2";
-#define BSIZE 50
+#define BSIZE 40
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM IParam);
 
 BOOL InCircle(double x, double y, double mx, double my)
@@ -14,6 +15,7 @@ BOOL InCircle(double x, double y, double mx, double my)
 	else
 		return FALSE;
 }
+
 int WINAPI WinMain(HINSTANCE hlnstance, HINSTANCE hPrevlnstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	HWND hWnd;
@@ -52,14 +54,16 @@ int WINAPI WinMain(HINSTANCE hlnstance, HINSTANCE hPrevlnstance, LPSTR lpszCmdPa
 }
 
 typedef struct Circle {
-	int X;
-	int Y;
+	double X;
+	double Y;
 }Circle;
 typedef struct Hurdle {
-	int X;
-	int Y;
+	double X;
+	double Y;
 	bool flag;
+	int col;
 }Hurdle;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	iMessage, WPARAM wParam, LPARAM lParam)
 {
@@ -67,54 +71,68 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	HDC hDC;
 	HBRUSH hBrush, oldBrush;
 	static Circle pick;
-	static Hurdle hurdle[20];  //·£´ý °´Ã¼
-	static int h_size[20]; // ·£´ý °´Ã¼ÀÇ ·£´ý »çÀÌÁî
-	static int mx, my;
-	static bool select = false;
-	static bool hurdle_pick;
+	static Hurdle hurdle[20];
+	static double mx, my;
+	static int h_size[20];
+	static int degree_T[4];
+	static int degree_F[4];
 	static int count = 0;
 	static int num = -1;
+	static bool select = false;
+	static bool collision = false;
 	char memo[50];
-	static bool collision;
-	srand((unsigned int)time(NULL));
+
+	srand((unsigned)time(NULL));
+
 	switch (iMessage)
 	{
 	case WM_CREATE:
+		degree_T[0] = 0;
+		degree_T[1] = 90;
+		degree_T[2] = 180;
+		degree_T[3] = 270;
+		degree_F[0] = 0;
+		degree_F[1] = 90;
+		degree_F[2] = 180;
+		degree_F[3] = 270;
+
 		pick.X = 0;
 		pick.Y = 0;
-		for (int i = 0; i < 20; i++)
-		{
-			h_size[i] = rand() % 60 + 5;
-		}
-		for (int i = 0; i < 20; i++)
-		{
-			hurdle[i].X = rand() % 1000;
+		for (int i = 0; i < 20; i++) {
+			hurdle[i].X = rand() % 1100;
 			hurdle[i].Y = rand() % 700;
 			hurdle[i].flag = true;
+			hurdle[i].col = 0;
 		}
-		//SetTimer(hWnd, 1, 100, NULL);
+		for (int i = 0; i < 20; i++)
+			h_size[i] = rand() % 50 +15;
+
 		break;
+
 	case WM_LBUTTONDOWN:
 		mx = HIWORD(lParam);
 		my = LOWORD(lParam);
-		if (pick.X, pick.Y, mx, my)
-		{
-			select = true;
-		};
-		
+		if (select == false) {
+			if (InCircle(pick.X, pick.Y, mx, my))
+			{
+				select = true;
+			}
+		}
 		InvalidateRgn(hWnd, NULL, false);
 		break;
+
 	case WM_LBUTTONUP:
 		select = false;
 		InvalidateRgn(hWnd, NULL, true);
 		break;
+
 	case WM_MOUSEMOVE:
-		hDC = GetDC(hWnd);
+		//hDC = GetDC(hWnd);
 		mx = LOWORD(lParam);
 		my = HIWORD(lParam);
 		if (select)
 		{
-			pick.X= mx;
+			pick.X = mx;
 			pick.Y = my;
 			InvalidateRgn(hWnd, NULL, true);
 		}
@@ -123,14 +141,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			{
 				collision = true;
 				num = i;
+				if (hurdle[num].flag == true)
+				{
+					hurdle[i].col += 1;
+					count += 1;
+				}
+				hurdle[num].flag = false;
+				SetTimer(hWnd, 1, 10, NULL);
 			}
 		}
-		//InvalidateRgn(hWnd, NULL, true);
+		collision = false;
 		break;
+	case WM_TIMER:
+		switch (wParam) {
+		case 1:
 
+			for (int i = 0; i < 4; i++)
+				degree_T[i] += 3;
+		}
+		InvalidateRgn(hWnd, NULL, true);
+		break;
 	case WM_PAINT:
 		hDC = BeginPaint(hWnd, &ps);
 
+		hBrush = CreateSolidBrush(RGB(0, 255, 0));
+		oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
+		Ellipse(hDC, pick.X - BSIZE, pick.Y - BSIZE, pick.X + BSIZE, pick.Y + BSIZE);
 		for (int i = 0; i < 20; i++)
 		{
 			if (hurdle[i].flag == true)
@@ -138,33 +174,52 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 				hBrush = CreateSolidBrush(RGB(0, 255, 0));
 			}
 			else {
-				hBrush = CreateSolidBrush(RGB(0, 0, 255));
+				hBrush = CreateSolidBrush(RGB(0, 200, 255));
 			}
-				oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
-				Ellipse(hDC, hurdle[i].X - h_size[i], hurdle[i].Y - h_size[i], hurdle[i].X + h_size[i], hurdle[i].Y + h_size[i]);
-				SelectObject(hDC, oldBrush);
-				DeleteObject(hBrush);
-			
+			oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
+			Ellipse(hDC, hurdle[i].X - h_size[i], hurdle[i].Y - h_size[i], hurdle[i].X + h_size[i], hurdle[i].Y + h_size[i]);
+			SelectObject(hDC, oldBrush);
+			DeleteObject(hBrush);
 		}
-
-		Ellipse(hDC, pick.X - BSIZE, pick.Y - BSIZE, pick.X + BSIZE, pick.Y + BSIZE);
-		//if (collision) {
-			if (hurdle[num].flag == true)
-				count += 1;
-			hurdle[num].flag = false;
-		//}
-		if(count>=20)
-			PostQuitMessage(0);
-	
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (hurdle[j].col>=1)
+				{
+					MoveToEx(hDC, hurdle[j].X, hurdle[j].Y, NULL);
+					LineTo(hDC, hurdle[j].X + (sin(degree_T[i] * 3.14 / 180) * h_size[j]), hurdle[j].Y + (cos(degree_T[i] * 3.14 / 180) * h_size[j]));
+				}
+				else if(hurdle[j].col==0)
+				{
+					MoveToEx(hDC, hurdle[j].X, hurdle[j].Y, NULL);
+					LineTo(hDC, hurdle[j].X + (sin(degree_F[i] * 3.14 / 180) * h_size[j]), hurdle[j].Y + (cos(degree_F[i] * 3.14 / 180) * h_size[j]));
+				}
+			}
+			for (int w = 10; w < 20; w++)
+			{
+				if (hurdle[w].col >= 1)
+				{
+					MoveToEx(hDC, hurdle[w].X, hurdle[w].Y, NULL);
+					LineTo(hDC, hurdle[w].X + (cos(degree_T[i] * 3.14 / 180) * h_size[w]), hurdle[w].Y + (sin(degree_T[i] * 3.14 / 180) * h_size[w]));
+				}
+				else if (hurdle[w].col == 0)
+				{
+					MoveToEx(hDC, hurdle[w].X, hurdle[w].Y, NULL);
+					LineTo(hDC, hurdle[w].X + (cos(degree_F[i] * 3.14 / 180) * h_size[w]), hurdle[w].Y + (sin(degree_F[i] * 3.14 / 180) * h_size[w]));
+				}
+			}
+		}
 		wsprintf(memo, TEXT("Ãæµ¹ÇÑ ¿øÀÇ °³¼ö´Â %d°³ ÀÔ´Ï´Ù."), count);
 		TextOut(hDC, 600, 400, memo, strlen(memo));
-
-
+		if(count>=20)
+			PostQuitMessage(0);
 		SelectObject(hDC, oldBrush);
 		DeleteObject(hBrush);
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
+		KillTimer(hWnd, 1);
 		PostQuitMessage(0);
 		return 0;
 	}

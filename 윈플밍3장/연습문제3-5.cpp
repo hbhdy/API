@@ -140,7 +140,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	case WM_LBUTTONDOWN:
 		mx = LOWORD(lParam);
 		my = HIWORD(lParam);
-		if (my > bug[0].Y && mx < bug[0].X) {
+		if ((my > bug[0].Y && mx < bug[0].X) ) {
 			key = 3;
 		}
 		else if (my < bug[0].Y && bug[0].X < mx) {

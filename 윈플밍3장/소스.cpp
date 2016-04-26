@@ -1,236 +1,169 @@
-﻿#include <windows.h> 
+﻿#include <Windows.h>
 #include <math.h>
-
 #define BSIZE 40
 
-float LengthPts(int x1, int y1, int x2, int y2)
+HINSTANCE g_hlnst;
+LPCTSTR lpszClass = "window program 1 - 2";
+LRESULT CALLBACK WndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM IParam);
+
+BOOL InCircle(double x, double y, double mx, double my)
 {
-	return(sqrt((float)((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1))));
+	if (sqrt((float)((mx - x)*(mx - x) + (my - y)*(my - y)))<BSIZE)
+		return TRUE;
+	else
+		return FALSE;
 }
 
-BOOL InRectangle(int x, int y, int mx, int my)
-{
-	if (LengthPts(x, y, mx, my) < BSIZE) return TRUE;
-	else return FALSE;
-}
-
-
-
-
-
-
-HINSTANCE g_hInst;
-LPCTSTR lpszClass = "Window Class Name";
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hlnstance, HINSTANCE hPrevlnstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	HWND hWnd;
 	MSG Message;
-	WNDCLASS WndClass;
-	g_hInst = hInstance;
+	WNDCLASSEX WndClass;
+	g_hlnst = hlnstance;
 
-	// 윈도우 클래스 구조체 값 설정 
+	WndClass.cbSize = sizeof(WndClass);
+	WndClass.style = CS_HREDRAW | CS_VREDRAW;
+	WndClass.lpfnWndProc = (WNDPROC)WndProc;
 	WndClass.cbClsExtra = 0;
 	WndClass.cbWndExtra = 0;
-	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	WndClass.hInstance = hlnstance;
 	WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	WndClass.hInstance = hInstance;
-	WndClass.lpfnWndProc = (WNDPROC)WndProc;
-	WndClass.lpszClassName = lpszClass;
+	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	WndClass.lpszMenuName = NULL;
-	WndClass.style = CS_HREDRAW | CS_VREDRAW;
+	WndClass.lpszClassName = lpszClass;
+	WndClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	RegisterClassEx(&WndClass);
 
-	// 윈도우 클래스 등록 
-	RegisterClass(&WndClass);
-
-	// 윈도우 생성 
-	hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindow(lpszClass, lpszClass,
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		800, 600, NULL, (HMENU)NULL, hInstance, NULL);
-	// 윈도우 출력 
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		NULL, (HMENU)NULL,
+		hlnstance, NULL);
+
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
-	// 이벤트 루프 처리 
 	while (GetMessage(&Message, 0, 0, 0)) {
 		TranslateMessage(&Message);
 		DispatchMessage(&Message);
 	}
 	return Message.wParam;
 }
-
-RECT rect;
-
-typedef struct circle {
-	double centerX;
-	double centerY;
-	int vecX;
-	int vecY;
-
+typedef struct Circle {
+	double X;
+	double Y;
 }Circle;
-
-Circle moveCircle;
-
-static int speed = 200;
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT
+	iMessage, WPARAM wParam, LPARAM lParam)
 {
-	HDC hdc;
 	PAINTSTRUCT ps;
-	HBRUSH MyBrush, OldBrush;
+	HDC hDC;
+	HBRUSH hBrush, oldBrush;
+	static Circle cir[2];
+	static double x, y;
+	static double mx, my;
+	static bool select = false;
+	static int degree[4];
+	static bool collision = false;
 
-	GetClientRect(hWnd, &rect);
-
-	static int x, y, flag;
-	static bool Selection;
-	int mx, my;
-
-
-	switch (uMsg) {
-
+	switch (iMessage)
+	{
 	case WM_CREATE:
-		//speed = 200;
-
-
-		SetTimer(hWnd, 1, 1000, NULL);
-
-
-		x = rect.right / 2;
-		y = rect.bottom - 10;
-
-		moveCircle.centerX = rect.right / 2;
-		moveCircle.centerY = rect.bottom - 40;
-		moveCircle.vecX = 20;
-		moveCircle.vecY = 20;
-
-
-
-		flag = 0;
-		Selection = false;
+		degree[0] = 0;
+		degree[1] = 90;
+		degree[2] = 180;
+		degree[3] = 270;
+		cir[0].X = 400;
+		cir[0].Y = 400;
+		cir[1].X = 0;
+		cir[1].Y = 0;
+		KillTimer(hWnd, 1);
+		break;
+	case WM_LBUTTONDOWN:
+		mx = LOWORD(lParam);
+		my = HIWORD(lParam);
+		if (select == false) {
+		if (InCircle(cir[1].X, cir[1].Y, mx, my))
+		{
+			select = true;
+		}
+	}
+		InvalidateRgn(hWnd, NULL, false);
+		break;
+	case WM_LBUTTONUP:
+		select = false;
+		InvalidateRgn(hWnd, NULL, true);
+		break;
+	case WM_MOUSEMOVE:
+		mx = LOWORD(lParam);
+		my = HIWORD(lParam);
+		if (select)
+		{
+			cir[1].X = mx;
+			cir[1].Y = my;
+			InvalidateRgn(hWnd, NULL, true);
+		}
+		if (InCircle(cir[0].X, cir[0].Y, cir[1].X, cir[1].Y))
+		{
+			collision = true;
+			SetTimer(hWnd, 1, 10, NULL);
+		}
+		//InvalidateRgn(hWnd, NULL, true);
 		break;
 
 	case WM_TIMER:
-		switch (wParam)
-		{
+		switch (wParam) {
 		case 1:
-			SetTimer(hWnd, 2, speed, NULL);
-
-			break;
-
-
-		case 2:
-			moveCircle.centerX -= moveCircle.vecX;
-			moveCircle.centerY -= moveCircle.vecY;
-
-			if (moveCircle.centerX - 10 <= rect.left)
-				moveCircle.vecX *= -1;
-
-			else if (moveCircle.centerY - 10 <= rect.top)
-				moveCircle.vecY *= -1;
-
-			else if (moveCircle.centerX + 10 >= rect.right)
-				moveCircle.vecX *= -1;
-
-			else if (moveCircle.centerY + 10 >= y - 20)
-				moveCircle.vecY *= -1;
-
-
-			InvalidateRect(hWnd, NULL, true);
-
-
-			break;
+			
+			for (int i = 0; i < 4;i++)
+				degree[i] += 5;
+		}
+		InvalidateRgn(hWnd, NULL, true);
+		break;
+	case WM_PAINT:
+		hDC = BeginPaint(hWnd, &ps);
+		if (collision == false)
+		{
+			hBrush = CreateSolidBrush(RGB(0, 200, 255));
+		}
+		else
+		{
+			hBrush = CreateSolidBrush(RGB(255, 0, 255));
+		}
+		oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
+		Ellipse(hDC, cir[0].X - BSIZE, cir[0].Y - BSIZE, cir[0].X + BSIZE, cir[0].Y + BSIZE);
+		
+		
+		if (collision == true)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				MoveToEx(hDC, cir[0].X, cir[0].Y, NULL);
+				LineTo(hDC, cir[0].X + (sin(degree[i] * 3.14 / 180) * 40), cir[0].Y + (cos(degree[i] * 3.14 / 180) * 40));
+			}
+		}
+		else if (collision == false)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				MoveToEx(hDC, cir[0].X, cir[0].Y, NULL);
+				LineTo(hDC, cir[0].X + (sin(degree[i] * 3.14 / 180) * 40), cir[0].Y + (cos(degree[i] * 3.14 / 180) * 40));
+			}
 		}
 
-		break;
+		hBrush = CreateSolidBrush(RGB(0, 255, 0));
+		oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
+		Ellipse(hDC, cir[1].X - BSIZE, cir[1].Y - BSIZE, cir[1].X + BSIZE, cir[1].Y + BSIZE);
 
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-
-		MyBrush = CreateSolidBrush(RGB(0, 255, 255));
-		OldBrush = (HBRUSH)SelectObject(hdc, MyBrush);
-
-		Rectangle(hdc, x - BSIZE, y - 20, x + BSIZE, y);
-
-		SelectObject(hdc, OldBrush);
-		DeleteObject(MyBrush);
-
-
-		MyBrush = CreateSolidBrush(RGB(255, 0, 255));
-		OldBrush = (HBRUSH)SelectObject(hdc, MyBrush);
-
-		Ellipse(hdc, moveCircle.centerX - 10, moveCircle.centerY - 10, moveCircle.centerX + 10, moveCircle.centerY + 10);
-
-		SelectObject(hdc, OldBrush);
-		DeleteObject(MyBrush);
-
+		SelectObject(hDC, oldBrush);
+		DeleteObject(hBrush);
 		EndPaint(hWnd, &ps);
 		break;
-
-
-	case WM_KEYDOWN:
-
-		if (wParam == 'm' || wParam == 'M') {
-			flag = 1;
-		}
-
-		else if (wParam == 's' || wParam == 'S') {
-			flag = 2;
-		}
-
-		else if (wParam == VK_F1)
-			speed += 25;
-
-		else if (wParam == VK_F2)
-			speed -= 25;
-
-		break;
-
-	case WM_LBUTTONDOWN:
-
-		//마우스 좌표 받음
-		mx = LOWORD(lParam);
-		my = HIWORD(lParam);
-
-		if (InRectangle(x, y, mx, my))
-			Selection = true;
-
-		InvalidateRect(hWnd, NULL, true);
-
-		break;
-
-	case WM_LBUTTONUP:
-
-		if (flag == 2) {
-
-			x = rect.right / 2;
-		}
-
-		InvalidateRect(hWnd, NULL, true);
-		Selection = false;
-
-		break;
-
-
-	case WM_MOUSEMOVE:
-
-		mx = LOWORD(lParam);
-		my = HIWORD(lParam);
-
-		if (Selection) {
-			x = mx;
-
-			InvalidateRect(hWnd, NULL, true);
-		}
-		break;
-
-
 	case WM_DESTROY:
-		KillTimer(hWnd, 1);
 		PostQuitMessage(0);
-		break;
+		return 0;
 	}
-	return DefWindowProc(hWnd, uMsg, wParam, lParam); // 나머지는 OS로 
+	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
 }

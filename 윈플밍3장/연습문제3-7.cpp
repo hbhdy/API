@@ -163,12 +163,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 				ball_DY = DOWN; // -1
 			else if (circle.X + 10 >= rect.right)
 				ball_DX = LEFT; // 1
-			else if (circle.Y + 10 >= bar_y-20)
+			else if (circle.Y + 10 >= bar_y-15)
 				ball_DY = UP; // 1
 
 			for (int i = 0; i < 20; i++)
 			{
-				if (circle.Y - 10 <= block[i].B && (circle.X <= block[i].R && circle.X >= block[i].L) && block[i].count < 2)
+				if (circle.Y - 20 <= block[i].B && (circle.X <= block[i].R && circle.X >= block[i].L) && block[i].count < 2)
 				{
 					block[i].count += 1;
 					block[i].flag += 1;
@@ -200,7 +200,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			Rectangle(hDC, block[i].L, block[i].T, block[i].R, block[i].B);
 			if (block[i].count == 1)
 			{
-				hBrush = CreateSolidBrush(RGB(0, 0, 0));
+				hBrush = CreateSolidBrush(RGB(255, 255, 0));
 				oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
 				Rectangle(hDC, block[i].L, block[i].T, block[i].R, block[i].B);
 				SelectObject(hDC, oldBrush);
@@ -208,7 +208,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			}
 			else if (block[i].count == 2)
 			{
-				hBrush = CreateSolidBrush(RGB(0, 0, 0));
+				hBrush = CreateSolidBrush(RGB(255, 255, 255));
 				oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
 				Rectangle(hDC, block[i].L, block[i].T, block[i].R, block[i].B);
 				SelectObject(hDC, oldBrush);
