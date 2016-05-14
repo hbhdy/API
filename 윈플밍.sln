@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "윈플밍", "Win32Project1\Win32Project1.vcxproj", "{3434145A-7C90-43A0-AF10-81751E8C6C57}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "윈플밍2장", "Win32Project1\Win32Project1.vcxproj", "{3434145A-7C90-43A0-AF10-81751E8C6C57}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "윈플밍3장", "윈플밍3장\윈플밍3장.vcxproj", "{2FD87F74-DC3C-4DF3-8B22-0BADB53F78D5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "윈플밍5장", "윈플밍5장\윈플밍5장.vcxproj", "{648950E9-0A45-415B-BB9F-4580A67F9603}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{2FD87F74-DC3C-4DF3-8B22-0BADB53F78D5}.Release|x64.Build.0 = Release|x64
 		{2FD87F74-DC3C-4DF3-8B22-0BADB53F78D5}.Release|x86.ActiveCfg = Release|Win32
 		{2FD87F74-DC3C-4DF3-8B22-0BADB53F78D5}.Release|x86.Build.0 = Release|Win32
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Debug|x64.ActiveCfg = Debug|x64
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Debug|x64.Build.0 = Debug|x64
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Debug|x86.ActiveCfg = Debug|Win32
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Debug|x86.Build.0 = Debug|Win32
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Release|x64.ActiveCfg = Release|x64
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Release|x64.Build.0 = Release|x64
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Release|x86.ActiveCfg = Release|Win32
+		{648950E9-0A45-415B-BB9F-4580A67F9603}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -95,7 +95,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			oldX = LOWORD(lParam);
 			oldY = HIWORD(lParam);
 		}
-		InvalidateRect(hWnd, NULL, true);
+		InvalidateRect(hWnd,NULL  , true);
 		break;
 
 	case WM_LBUTTONUP:
@@ -170,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 		hPen = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
 		hBrush = CreateSolidBrush(RGB(0, 255, 0));
 		oldBrush = (HBRUSH)SelectObject(hDC, hBrush);
-		oldPen = (HPEN)SelectObject(hDC, hPen);
+		hPen = CreatePen(PS_SOLID, 2, RGB(0, 0, 0));
 		
 		Ellipse(hDC,cir.X-BSIZE, cir.Y-BSIZE,cir.X+BSIZE, cir.Y+BSIZE);
 		

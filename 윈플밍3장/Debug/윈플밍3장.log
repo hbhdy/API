@@ -1,12 +1,1 @@
-﻿  연습문제3-8.cpp
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(169): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(180): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(190): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(191): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(195): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(196): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(203): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(204): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(208): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍3장\연습문제3-8.cpp(209): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  윈플밍3장.vcxproj -> C:\Users\Administrator\Documents\Visual Studio 2015\Projects\API\Debug\윈플밍3장.exe
+﻿

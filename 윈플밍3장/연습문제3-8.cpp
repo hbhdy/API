@@ -95,7 +95,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 		degree_F[1] = 90;
 		degree_F[2] = 180;
 		degree_F[3] = 270;
-
+		mx = HIWORD(lParam);
+		my = LOWORD(lParam);
 		pick.X = 0;
 		pick.Y = 0;
 		for (int i = 0; i < 20; i++) {
@@ -110,31 +111,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 		break;
 
 	case WM_LBUTTONDOWN:
-		mx = HIWORD(lParam);
-		my = LOWORD(lParam);
 		if (select == false) {
 			if (InCircle(pick.X, pick.Y, mx, my))
 			{
 				select = true;
 			}
 		}
-		InvalidateRgn(hWnd, NULL, false);
+		InvalidateRect(hWnd, NULL, false);
 		break;
 
 	case WM_LBUTTONUP:
 		select = false;
-		InvalidateRgn(hWnd, NULL, true);
+		InvalidateRect(hWnd, NULL, true);
 		break;
 
 	case WM_MOUSEMOVE:
-		//hDC = GetDC(hWnd);
+		hDC = GetDC(hWnd);
 		mx = LOWORD(lParam);
 		my = HIWORD(lParam);
-		if (select)
+		if (select==true)
 		{
 			pick.X = mx;
 			pick.Y = my;
-			InvalidateRgn(hWnd, NULL, true);
+			InvalidateRect(hWnd, NULL, true);
 		}
 		for (int i = 0; i < 20; i++) {
 			if (InCircle(pick.X, pick.Y, hurdle[i].X, hurdle[i].Y))
@@ -151,6 +150,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			}
 		}
 		collision = false;
+		
 		break;
 	case WM_TIMER:
 		switch (wParam) {
@@ -159,7 +159,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			for (int i = 0; i < 4; i++)
 				degree_T[i] += 3;
 		}
-		InvalidateRgn(hWnd, NULL, true);
+		InvalidateRect(hWnd, NULL, true);
 		break;
 	case WM_PAINT:
 		hDC = BeginPaint(hWnd, &ps);
