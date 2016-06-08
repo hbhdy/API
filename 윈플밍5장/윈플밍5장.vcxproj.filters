@@ -36,6 +36,12 @@
     <ClCompile Include="연습문제5-6.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="연습문제5-7.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="연습문제5-8.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -121,6 +127,42 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="..\..\..\..\..\Desktop\리소스\테리어몬2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\background.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\box.BMP">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\carL.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\carR.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\cross.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\Desktop\리소스\road.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

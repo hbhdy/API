@@ -161,7 +161,15 @@
     <ClCompile Include="연습문제5-5.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="연습문제5-6.cpp" />
+    <ClCompile Include="연습문제5-6.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="연습문제5-7.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="연습문제5-8.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -170,15 +178,24 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\..\Desktop\리소스\background.bmp" />
     <Image Include="..\..\..\..\..\desktop\리소스\bitmap11.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\box.BMP" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\carL.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\carR.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\cross.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\grass.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\grass.png" />
     <Image Include="..\..\..\..\..\Desktop\리소스\reversky.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\road.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\sky.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\sky.png" />
     <Image Include="..\..\..\..\..\Desktop\리소스\걷기1.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\걷기2.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\걷기3.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이1.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이2.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\괭이3.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\달리기.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\수정됨_1.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\수정됨_2.bmp" />
@@ -188,6 +205,9 @@
     <Image Include="..\..\..\..\..\Desktop\리소스\수정됨_6.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\수정됨_7.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\수정됨_8.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐1.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐2.bmp" />
+    <Image Include="..\..\..\..\..\Desktop\리소스\쥐3.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\테리어몬2.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\폭팔1.bmp" />
     <Image Include="..\..\..\..\..\Desktop\리소스\폭팔2.bmp" />

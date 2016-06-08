@@ -1,0 +1,5 @@
+﻿cl : 명령줄 warning D9028: 최소 다시 빌드에 실패했습니다. 정상 빌드로 되돌립니다.
+  소스.cpp
+c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍6장-5\소스.cpp(66): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+c:\users\administrator\documents\visual studio 2015\projects\api\윈플밍6장-5\소스.cpp(111): warning C4101: 'hDC' :참조되지 않은 지역 변수입니다.
+  윈플밍6장-5.vcxproj -> C:\Users\Administrator\Documents\Visual Studio 2015\Projects\API\Debug\윈플밍6장-5.exe

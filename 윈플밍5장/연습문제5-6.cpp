@@ -75,14 +75,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	static int mx, my;
 	static int sel3[8], sel4[15], sel5[24];
 	static int empsel3[9], empsel4[16], empsel5[25];
-	srand((unsigned int)time(NULL));
-	GetClientRect(hWnd, &rt);
+	static bool picture = false;
 	int B3 = 0;
 	int emB3 = 0;
 	int B4 = 0;
 	int emB4 = 0;
 	int B5 = 0;
 	int emB5 = 0;
+
+	srand((unsigned int)time(NULL));
+	GetClientRect(hWnd, &rt);
 
 	switch (iMessage)
 	{
@@ -197,6 +199,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 			}
 		}
 		if (wParam == 'f' || wParam == 'F') {
+			if (picture == false)
+				picture = true;
+			else
+				picture = false;
 			// 그림전체보기
 		}
 		if (wParam == 'q' || wParam == 'Q') {
@@ -424,6 +430,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 				StretchBlt(hDC, block3[i].x, block3[i].y, 120, 120, MemDC, block3Cpy[i].x, block3Cpy[i].y, 120, 120, SRCCOPY);
 				//printf("%d, %d\n", block1[i].x, block1[i].y);
 			}
+		}
+
+		if (picture == true) {
+			BitBlt(hDC, 0, 0, 600, 600, MemDC, 0, 0, SRCCOPY);
 		}
 		DeleteDC(MemDC);
 		EndPaint(hWnd, &ps);

@@ -52,7 +52,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 	static RECT rt;
 	static HDC hDC,MemDC,Mem1DC, Mem2DC;
 	static HBITMAP enemyRunBit[3],RunBit[8], DieBit[4], back1, back2, back1Copy, back2Copy, hBitmap, hBitmap2;
-	static int xpos, ypos;  // 캐럭티 좌표
+	static int xpos, ypos;  // 캐릭터 좌표
 	static int enemyXpos, enemyYpos;
 	static int jumpState;  // 1은 위로 0은 아래로
 	static int jumpcount; // 점프 시간 측정
@@ -124,8 +124,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT
 		count2 = count2 % 3;
 		switch (wParam) {
 		case 1: //  sky 및 glass
-			glassX -= 10;
-			copyglassX -= 10;
+			glassX -= 50;
+			copyglassX -= 50;
 			skyX -= 20;
 			copyskyX -= 20;
 			if (skyX <= -800) {
